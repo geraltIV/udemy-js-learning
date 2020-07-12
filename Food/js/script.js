@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Timer
 
-    const deadline = '2020-07-12';
+    const deadline = '2020-07-13';
 
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
@@ -64,6 +64,8 @@ window.addEventListener('DOMContentLoaded', () => {
     function getZero(num) {
         if (num >= 0 && num < 10) {
             return `0${num}`;
+        } else if (num < 0) {
+            return 0;
         } else {
             return num;
         }
@@ -95,4 +97,41 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     setClock('.timer', deadline);
+
+    // Modal
+
+    const modalOpen = document.querySelectorAll('[data-modal]'),
+          modalClose = document.querySelectorAll('[data-close]'),
+          modalWindow = document.querySelector('.modal');
+
+    modalOpen.forEach((item) => {
+        item.addEventListener('click', () => {
+            modalWindow.classList.add('show');
+            modalWindow.classList.remove('hide');
+            document.body.style.overflow = 'hidden';
+        })
+    });
+
+    function closeModal() {
+        modalWindow.classList.remove('show');
+        modalWindow.classList.add('hide');
+        document.body.style.overflow = '';
+    }
+
+    modalClose.forEach(item => {
+        item.addEventListener('click', closeModal)
+    });
+
+    modalWindow.addEventListener('click', (event) => {
+        if (event.target === modalWindow) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if(event.code === 'Escape' && modalWindow.classList.contains('show')) {
+            closeModal();
+        }
+    });
+    
 });
