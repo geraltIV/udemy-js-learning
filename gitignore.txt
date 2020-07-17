@@ -11,6 +11,7 @@ yarn-error.log*
 .vscode
 .tmp
 .DS_Store
+
 *.suo
 *.ntvs*
 *.njsproj
